@@ -211,22 +211,28 @@ namespace BTL0.Controllers
 
         public void SaveStudentsToFile()
         {
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string folderPath = Path.Combine(projectDirectory, "Data");
+            string filePath = Path.Combine(folderPath, "students.txt");
+
             StringBuilder sb = new StringBuilder();
             foreach (Student student in students)
             {
                 sb.AppendLine(student.ToString());
                 sb.AppendLine("--------------------------");
             }
-            File.WriteAllText("students.txt", sb.ToString());
+            File.WriteAllText(filePath, sb.ToString());
             Console.WriteLine("Students saved to file successfully.");
         }
         public void LoadStudentsFromFile()
         {
-            try 
-            {
-                string[] lines = File.ReadAllLines("students.txt");
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string filePath = Path.Combine(projectDirectory, "Data", "students.txt");
 
-                // Xác định các thuộc tính cần đọc từ mỗi sinh viên
+            try
+            {
+                string[] lines = File.ReadAllLines(filePath);
+
                 int id = 0;
                 string name = string.Empty;
                 DateTime birthday = DateTime.Now;
@@ -284,7 +290,6 @@ namespace BTL0.Controllers
                     {
                         Enum.TryParse(line.Substring(18), true, out rank);
 
-                        // Tạo đối tượng sinh viên và thêm vào danh sách
                         Student student = new Student
                         {
                             Id = id,
