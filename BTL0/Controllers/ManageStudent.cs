@@ -6,13 +6,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BTL0.Controllers
 {
     internal class ManageStudent
     {
-        public static List<Student> students = new List<Student>();
+        public static List<Student> Students = new List<Student>();
+
         public void ReadStudentInfo(Student student)
         {
             Console.WriteLine(student.ToString());
@@ -22,53 +22,57 @@ namespace BTL0.Controllers
         public void ReadStudents()
         {
             Console.WriteLine("LIST:");
-            foreach (Student student in students)
+            foreach (Student student in Students)
             {
                 ReadStudentInfo(student);
             }
         }
 
-        public Student InputID()
+        public Student FindByID()
         {
-            int id = 0;
+            var ID = 0;
             Console.Write("Enter student ID:");
             while (true)
             {
-                var InputId = Console.ReadLine();
-                var isInt = Int32.TryParse(InputId, out int result);
+                var inputID = Console.ReadLine();
+                var isInt = Int32.TryParse(inputID, out int result);
                 if (!isInt)
                 {
                     Console.WriteLine("Input again!");
                     continue;
                 }
-                id = result;
+                ID = result;
                 break;
             }
-
-            Student student = students.FirstOrDefault(x => x.Id == id);
-            if (student == null)
+            var Student = Students.FirstOrDefault(x => x.ID == ID);
+            if (Student == null)
             {
                 Console.WriteLine("Student does not exist!");
                 return null;
             }
-            return student;
+            return Student;
         }
         
+        public int IncreaseID()
+        {
+            return Students.Count > 0 ? Students.Max(s => s.ID) + 1 : 1;
+        }
+
         public void CreateStudent()
         {
-            int id = students.Count > 0 ? students.Max(s => s.Id) + 1 : 1;
-            string name = Valid.GetUserInput("Please enter name: ", Valid.GetValidName);
-            string birthDay = Valid.GetUserInput("Please enter birth day  (dd/MM/yyyy): ", Valid.ValidateBirthDay);
-            string address = Valid.GetUserInput("Please enter address: ", Valid.GetValidAddres);
-            string height = Valid.GetUserInput("Please enter height (cm): ", Valid.ValidateHeight);
-            string weight = Valid.GetUserInput("Please enter weight (kg):", Valid.ValidateWeight);
-            string studentCode = Valid.GetUserInput("Please enter student code : ", (input) => Valid.ValidateStudentCode(input, students));
-            string school = Valid.GetUserInput("Please enter school: ", Valid.ValidateSchool);
-            string startYear = Valid.GetUserInput("Please enter start year (yyyy): ", Valid.ValidateStartYear);
-            string gpa = Valid.GetUserInput("Please enter GPA (double): ", Valid.ValidateGPA);
-            Student newStudent = new Student(id, name, DateTime.ParseExact(birthDay, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-            address, double.Parse(height), double.Parse(weight), studentCode, school, int.Parse(startYear), double.Parse(gpa));
-            students.Add(newStudent);
+            var ID = IncreaseID();
+            var Name = Validate.GetUserInput("Please enter name: ", Validate.GetValidName);
+            var BirthDay = Validate.GetUserInput("Please enter birth day  (dd/MM/yyyy): ", Validate.GetValidBirthDay);
+            var Address = Validate.GetUserInput("Please enter address: ", Validate.GetValidAddres);
+            var Height = Validate.GetUserInput("Please enter height (cm): ", Validate.GetValidHeight);
+            var Weight = Validate.GetUserInput("Please enter weight (kg):", Validate.GetValidWeight);
+            var StudentCode = Validate.GetUserInput("Please enter student code : ", (input) => Validate.GetValidStudentCode(input, Students));
+            var School = Validate.GetUserInput("Please enter school: ", Validate.GetValidSchool);
+            var StartYear = Validate.GetUserInput("Please enter start year (yyyy): ", Validate.GetValidStartYear);
+            var Gpa = Validate.GetUserInput("Please enter GPA (double): ", Validate.GetValidGPA);
+            var newStudent = new Student(ID, Name, DateTime.ParseExact(BirthDay, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+            Address, double.Parse(Height), double.Parse(Weight), StudentCode, School, int.Parse(StartYear), double.Parse(Gpa));
+            Students.Add(newStudent);
             Console.WriteLine("Student created successfully!");
         }
 
@@ -88,39 +92,38 @@ namespace BTL0.Controllers
             while (true)
             {
                 Console.Write("Enter your choice: ");
-                int choice;
-                if (!int.TryParse(Console.ReadLine(), out choice))
+                int Choice;
+                if (!int.TryParse(Console.ReadLine(), out Choice))
                 {
                     Console.WriteLine("Invalid input. Please enter a number.");
                     continue;
                 }
-
-                switch (choice)
+                switch (Choice)
                 {
                     case 1:
-                        student.Name = Valid.GetUserInput("Enter new name: ", Valid.GetValidName);
+                        student.Name = Validate.GetUserInput("Enter new name: ", Validate.GetValidName);
                         break;
                     case 2:
-                        student.Address = Valid.GetUserInput("Enter new address: ", Valid.GetValidAddres);
+                        student.Address = Validate.GetUserInput("Enter new address: ", Validate.GetValidAddres);
                         break;
                     case 3:
-                        student.School = Valid.GetUserInput("Enter new school: ", Valid.ValidateSchool);
+                        student.School = Validate.GetUserInput("Enter new school: ", Validate.GetValidSchool);
                         break;
                     case 4:
-                        student.GPA = double.Parse(Valid.GetUserInput("Enter new GPA: ", Valid.ValidateGPA));
+                        student.GPA = double.Parse(Validate.GetUserInput("Enter new GPA: ", Validate.GetValidGPA));
                         student.AcademicPerformance = Student.AutoUpdateRank(student.GPA);
                         break;
                     case 5:
-                        student.BirthDay = DateTime.ParseExact(Valid.GetUserInput("Enter new birth day (dd/MM/yyyy): ", Valid.ValidateBirthDay), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        student.BirthDay = DateTime.ParseExact(Validate.GetUserInput("Enter new birth day (dd/MM/yyyy): ", Validate.GetValidBirthDay), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         break;
                     case 6:
-                        student.StartYear = int.Parse(Valid.GetUserInput("Enter new start year (yyyy): ", Valid.ValidateStartYear));
+                        student.StartYear = int.Parse(Validate.GetUserInput("Enter new start year (yyyy): ", Validate.GetValidStartYear));
                         break;
                     case 7:
-                        student.Height = double.Parse(Valid.GetUserInput("Enter new height (cm): ", Valid.ValidateHeight));
+                        student.Height = double.Parse(Validate.GetUserInput("Enter new height (cm): ", Validate.GetValidHeight));
                         break;
                     case 8:
-                        student.Weight = double.Parse(Valid.GetUserInput("Enter new weight (kg): ", Valid.ValidateWeight));
+                        student.Weight = double.Parse(Validate.GetUserInput("Enter new weight (kg): ", Validate.GetValidWeight));
                         break;
                     case 9:
                         Console.WriteLine("Update completed.");
@@ -129,26 +132,24 @@ namespace BTL0.Controllers
                         Console.WriteLine("Invalid choice. Please enter a valid option.");
                         break;
                 }
-
                 Console.WriteLine("Update successful!");
                 ReadStudentInfo(student);
             }
-
         }
 
         public void DeleteStudent(Student student)
         {
-            students.Remove(student);
+            Students.Remove(student);
             Console.WriteLine("Student deleted successfully!");
             ReadStudents();
         }
 
         public void RankPercent()
         {
-            Dictionary<Rank, int> performanceCount = new Dictionary<Rank, int>();
-            int totalStudents = students.Count;
+            var performanceCount = new Dictionary<Rank, int>();
+            var totalStudents = Students.Count;
 
-            foreach (var student in students)
+            foreach (var student in Students)
             {
                 if (performanceCount.ContainsKey(student.AcademicPerformance))
                     performanceCount[student.AcademicPerformance]++;
@@ -159,26 +160,26 @@ namespace BTL0.Controllers
             Console.WriteLine("\nSorted by percentage (descending):");
             foreach (var kvp in sortedPerformance)
             {
-                double percentage = (double)kvp.Value / totalStudents * 100;
+                var percentage = (double)kvp.Value / totalStudents * 100;
                 Console.WriteLine($"{kvp.Key}: {kvp.Value} students, {percentage}%");
             }
         }
 
         public void GPAPercent()
         {
-            Dictionary<double, int> GPACount = new Dictionary<double, int>();
-            int totalStudents = students.Count;
+            var gpaCount = new Dictionary<double, int>();
+            var totalStudents = Students.Count;
 
-            foreach (var student in students)
-                if (GPACount.ContainsKey(student.GPA))
-                    GPACount[student.GPA]++;
+            foreach (var student in Students)
+                if (gpaCount.ContainsKey(student.GPA))
+                    gpaCount[student.GPA]++;
                 else
-                    GPACount[student.GPA] = 1;
-            var sorted = GPACount.OrderBy(x => x.Key).ToList();
+                    gpaCount[student.GPA] = 1;
+            var sorted = gpaCount.OrderBy(x => x.Key).ToList();
             Console.WriteLine("\nSorted by GPA (ascending):");
             foreach (var kvp in sorted)
             {
-                double percentage = (double)kvp.Value / totalStudents * 100;
+                var percentage = (double)kvp.Value / totalStudents * 100;
                 Console.WriteLine($"{kvp.Key}: {kvp.Value} students, {percentage}%");
             }
         }
@@ -186,17 +187,17 @@ namespace BTL0.Controllers
         public void ListOfStudentsByRanking()
         {
             int inputKey;
-            Dictionary<int, string> rankMappings = new Dictionary<int, string>{ { 1, "Poor" }, { 2, "Weak" }, { 3, "Average" }, { 4, "Good" }, { 5, "VeryGood" }, { 6, "Excellent" } };
+            var rankMappings = new Dictionary<int, string>{ { 1, "Poor" }, { 2, "Weak" }, { 3, "Average" }, { 4, "Good" }, { 5, "VeryGood" }, { 6, "Excellent" } };
             Console.WriteLine("Enter the corresponding number for each rank:\n1 - Poor, 2 - Weak, 3 - Average, 4 - Good, 5 - VeryGood, 6 - Excellent");
             while (true)
             {
-                string userInput = Console.ReadLine();
+                var userInput = Console.ReadLine();
                 if (int.TryParse(userInput, out inputKey))
                     if (rankMappings.ContainsKey(inputKey))
                         break;
                 Console.WriteLine("Enter a valid number from 1 to 6:");
             }
-            List<Student> filteredStudents = students.FindAll(student => student.AcademicPerformance.ToString().Equals(rankMappings[inputKey], StringComparison.OrdinalIgnoreCase));
+            var filteredStudents = Students.FindAll(student => student.AcademicPerformance.ToString().Equals(rankMappings[inputKey], StringComparison.OrdinalIgnoreCase));
             if (filteredStudents.Count > 0)
             {
                foreach (var student in filteredStudents)
@@ -211,12 +212,11 @@ namespace BTL0.Controllers
 
         public void SaveStudentsToFile()
         {
-            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            string folderPath = Path.Combine(projectDirectory, "Data");
-            string filePath = Path.Combine(folderPath, "students.txt");
-
-            StringBuilder sb = new StringBuilder();
-            foreach (Student student in students)
+            var projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            var folderPath = Path.Combine(projectDirectory, "Data");
+            var filePath = Path.Combine(folderPath, "students.txt");
+            var sb = new StringBuilder();
+            foreach (Student student in Students)
             {
                 sb.AppendLine(student.ToString());
                 sb.AppendLine("--------------------------");
@@ -224,77 +224,56 @@ namespace BTL0.Controllers
             File.WriteAllText(filePath, sb.ToString());
             Console.WriteLine("Students saved to file successfully.");
         }
+
         public void LoadStudentsFromFile()
         {
-            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
-            string filePath = Path.Combine(projectDirectory, "Data", "students.txt");
-
+            var projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            var filePath = Path.Combine(projectDirectory, "Data", "students.txt");
             try
             {
-                string[] lines = File.ReadAllLines(filePath);
-
-                int id = 0;
-                string name = string.Empty;
-                DateTime birthday = DateTime.Now;
-                string address = string.Empty;
-                double height = 0;
-                double weight = 0;
-                string studentCode = string.Empty;
-                string school = string.Empty;
-                int startYear = 0;
-                double gpa = 0;
-                Rank rank = Rank.Poor;
+                var lines = File.ReadAllLines(filePath);
+                var id = 0;
+                var name = string.Empty;
+                var birthDay = DateTime.Now;
+                var address = string.Empty;
+                var height = 0.0;
+                var weight = 0.0;
+                var studentCode = string.Empty;
+                var school = string.Empty;
+                var startYear = 0;
+                var gpa = 0.0;
+                var rank = Rank.Poor;
                 foreach (string line in lines)
                 {
-                    if (line.StartsWith("Id="))
-                    {
+                    if (line.StartsWith("ID="))
                         int.TryParse(line.Substring(3), out id);
-                    }
                     else if (line.StartsWith("Name="))
-                    {
                         name = line.Substring(5);
-                    }
                     else if (line.StartsWith("BirthDay="))
-                    {
-                        birthday = DateTime.ParseExact(line.Substring(9), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                    }
+                        birthDay = DateTime.ParseExact(line.Substring(9), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     else if (line.StartsWith("Address="))
-                    {
                         address = line.Substring(8);
-                    }
                     else if (line.StartsWith("Height="))
-                    {
                         double.TryParse(line.Substring(7), out height);
-                    }
                     else if (line.StartsWith("Weight="))
-                    {
                         double.TryParse(line.Substring(7), out weight);
-                    }
                     else if (line.StartsWith("CodeStudent="))
-                    {
                         studentCode = line.Substring(12);
-                    }
                     else if (line.StartsWith("School="))
-                    {
                         school = line.Substring(7);
-                    }
                     else if (line.StartsWith("StartYear="))
-                    {
                         int.TryParse(line.Substring(10), out startYear);
-                    }
                     else if (line.StartsWith("GPA="))
-                    {
                         double.TryParse(line.Substring(4), out gpa);
-                    }
-                    else if (line.StartsWith("AcademicPerforman="))
+                    else if (line.StartsWith("AcademicPerformance="))
                     {
-                        Enum.TryParse(line.Substring(18), true, out rank);
+                        Enum.TryParse(line.Substring(20), true, out rank);
 
-                        Student student = new Student
+                        var student = new Student
                         {
-                            Id = id,
+                            ID = id,
                             Name = name,
-                            BirthDay = birthday,
+                            BirthDay = birthDay,
                             Address = address,
                             Height = height,
                             Weight = weight,
@@ -304,11 +283,9 @@ namespace BTL0.Controllers
                             GPA = gpa,
                             AcademicPerformance = rank
                         };
-
-                        students.Add(student);
+                        Students.Add(student);
                     }
                 }
-
             }
             catch (Exception ex)
             {

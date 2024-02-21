@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BTL0.Constant
+﻿namespace BTL0.Constant
 {
     public static class Constant
     {
@@ -21,6 +15,5 @@ namespace BTL0.Constant
         public const int MinYearOfAdmission = 1900;
         public const double MinGPA = 0.0;
         public const double MaxGPA = 10.0;
-       
     }
 }

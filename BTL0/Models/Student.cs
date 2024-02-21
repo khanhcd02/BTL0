@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BTL0.Models
 {
@@ -14,24 +10,22 @@ namespace BTL0.Models
         public double GPA { get; set; }
         public Rank AcademicPerformance { get; set; }
 
-        public static Rank AutoUpdateRank(double GPA)
+        public static Rank AutoUpdateRank(double gpa)
         {
-            if (GPA < 3)
+            if (gpa < 3)
                 return Rank.Poor;
-            if (GPA < 5)
+            if (gpa < 5)
                 return Rank.Weak;
-            if (GPA < 6.5)
+            if (gpa < 6.5)
                 return Rank.Average;
-            if (GPA < 7.5)
+            if (gpa < 7.5)
                 return Rank.Good;
-            if (GPA < 9)
+            if (gpa < 9)
                 return Rank.VeryGood;
             return Rank.Excellent;
         }
-        public Student()
-        {
 
-        }
+        public Student() { }
 
         public Student(int id, string name, DateTime birthDay, string address, double? height, double? weight,
                         string studentCode, string school, int startYear, double gpa)
@@ -46,13 +40,7 @@ namespace BTL0.Models
 
         public override string ToString()
         {
-            return $"{base.ToString()}" +
-                   $"CodeStudent={StudentCode}\n" +
-                   $"School={School}\n" +
-                   $"StartYear={StartYear}\n" +
-                   $"GPA={GPA}\n" +
-                   $"AcademicPerforman={AutoUpdateRank(GPA)}";
+            return $"{base.ToString()}" + $"CodeStudent={StudentCode}\n" + $"School={School}\n" + $"StartYear={StartYear}\n" + $"GPA={GPA}\n" + $"AcademicPerformance={AutoUpdateRank(GPA)}";
         }
-
     }
 }

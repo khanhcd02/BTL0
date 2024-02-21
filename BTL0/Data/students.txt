@@ -1,4 +1,4 @@
-Id=1
+ID=1
 Name=abc
 BirthDay=22/10/2002
 Address=hcm
@@ -8,9 +8,9 @@ CodeStudent=msv0987654
 School=epu
 StartYear=2023
 GPA=4
-AcademicPerforman=Weak
+AcademicPerformance=Weak
 --------------------------
-Id=2
+ID=2
 Name=khanh
 BirthDay=20/02/2002
 Address=ha noi
@@ -20,9 +20,9 @@ CodeStudent=msv1234567
 School=epu
 StartYear=2020
 GPA=9.5
-AcademicPerforman=Excellent
+AcademicPerformance=Excellent
 --------------------------
-Id=3
+ID=3
 Name=xyz
 BirthDay=31/01/2002
 Address=ha noi
@@ -32,9 +32,9 @@ CodeStudent=msv2345678
 School=hutech
 StartYear=2020
 GPA=8.5
-AcademicPerforman=VeryGood
+AcademicPerformance=VeryGood
 --------------------------
-Id=4
+ID=4
 Name=qwer
 BirthDay=26/05/2002
 Address=ha nam
@@ -44,9 +44,9 @@ CodeStudent=msv3456789
 School=epu
 StartYear=2020
 GPA=8
-AcademicPerforman=VeryGood
+AcademicPerformance=VeryGood
 --------------------------
-Id=5
+ID=5
 Name=awsd
 BirthDay=19/12/2002
 Address=thach that
@@ -56,9 +56,9 @@ CodeStudent=msv4567890
 School=epu
 StartYear=2020
 GPA=9.8
-AcademicPerforman=Excellent
+AcademicPerformance=Excellent
 --------------------------
-Id=6
+ID=6
 Name=test
 BirthDay=11/11/2011
 Address=ha noi
@@ -68,5 +68,5 @@ CodeStudent=msv4629106
 School=epu
 StartYear=2020
 GPA=8
-AcademicPerforman=VeryGood
+AcademicPerformance=VeryGood
 --------------------------

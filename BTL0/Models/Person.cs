@@ -1,29 +1,21 @@
-﻿using BTL0.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace BTL0.Models
 {
     internal class Person
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public DateTime BirthDay { get; set; }
         public string Address { get; set; }
         public double? Height { get; set; }
         public double? Weight { get; set; }
 
-        public Person()
-        {
-
-        }
+        public Person() { }
 
         public Person(int id, string name, DateTime birthDay, string address, double? height, double? weight)
         {
-            Id = id;
+            ID = id;
             Name = name;
             BirthDay = birthDay;
             Address = address;
@@ -33,12 +25,7 @@ namespace BTL0.Models
 
         public override string ToString()
         {
-            return $"Id={Id}\n" +
-                $"Name={Name}\n" +
-                $"BirthDay={BirthDay.ToString("dd/MM/yyyy")}\n" +
-                $"Address={Address}\n" +
-                $"Height={Height}\n" +
-                $"Weight={Weight}\n";
+            return $"ID={ID}\n" + $"Name={Name}\n" + $"BirthDay={BirthDay.ToString("dd/MM/yyyy")}\n" + $"Address={Address}\n" + $"Height={Height}\n" + $"Weight={Weight}\n";
         }
     }
 }

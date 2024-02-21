@@ -1,10 +1,6 @@
 ﻿using BTL0.Controllers;
 using BTL0.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BTL0
 {
@@ -22,7 +18,7 @@ namespace BTL0
                 switch (key)
                 {
                     case 1:
-                        DisplayMenu();
+                        ManagerMenu();
                         break;
                     case 2:
                         AppController.ReadStudents();
@@ -37,7 +33,8 @@ namespace BTL0
                 }
             }
         }
-        static void DisplayMenu()
+
+        static void ManagerMenu()
         {
             ManageStudent AppController = new ManageStudent();
             while (true)
@@ -59,15 +56,15 @@ namespace BTL0
                         AppController.CreateStudent();
                         break;
                     case 2:
-                        student = AppController.InputID();
+                        student = AppController.FindByID();
                         AppController.ReadStudentInfo(student);
                         break;
                     case 3:
-                        student = AppController.InputID();
+                        student = AppController.FindByID();
                         AppController.UpdateStudent(student);
                         break;
                     case 4:
-                        student = AppController.InputID();
+                        student = AppController.FindByID();
                         AppController.DeleteStudent(student);
                         break;
                     case 5:
@@ -87,11 +84,12 @@ namespace BTL0
                 }
             }
         }
+
         static void MainMenu()
         {
             Console.WriteLine("1. Manage Student ");
             Console.WriteLine("2. List Student ");
-            Console.WriteLine("3. Exit");
+            Console.WriteLine("3. Save & Exit");
             Console.WriteLine("--------------------------------------");
         }
     }
