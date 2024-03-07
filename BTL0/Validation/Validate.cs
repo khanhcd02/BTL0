@@ -11,47 +11,44 @@ namespace BTL0.Validation
         {
             if (string.IsNullOrEmpty(name))
                 return (false, "Name is not null or empty!");
-            if (name.Length > Constant.Constant.MaxLengthName)
-                return (false, $"Name must be less than {Constant.Constant.MaxLengthName} characters!");
+            if (name.Length > Constant.Constant.Max_Length_Name)
+                return (false, $"Name must be less than {Constant.Constant.Max_Length_Name} characters!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidBirthDay(string date)
         {
-            DateTime convertDate;
             if (string.IsNullOrEmpty(date))
                 return (false, "DayOfBirth is not null or empty!");
-            if (!DateTime.TryParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out convertDate))
+            if (!DateTime.TryParseExact(date, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var convertDate))
                 return (false, "Enter the date in the format dd/MM/yyyy.");
-            if (convertDate.Year < Constant.Constant.MinYearOfAdmission)
-                return (false, $"Year must be greater than {Constant.Constant.MinYearOfAdmission}!");
+            if (convertDate.Year < Constant.Constant.Min_Year_Of_Admission)
+                return (false, $"Year must be greater than {Constant.Constant.Min_Year_Of_Admission}!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidAddres(string address)
         {
-            if (address.Length > Constant.Constant.MaxLengthAddress)
-                return (false, $"Address must be less than {Constant.Constant.MaxLengthAddress} characters!");
+            if (address.Length > Constant.Constant.Max_Length_Address)
+                return (false, $"Address must be less than {Constant.Constant.Max_Length_Address} characters!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidHeight(string height)
         {
-            double check;
-            if (!double.TryParse(height, out check))
+            if (!double.TryParse(height, out var check))
                 return (false, "Incorrect input format!");
-            if (check < Constant.Constant.MinHeight || check > Constant.Constant.MaxHeight)
-                return (false, $"Height must be between {Constant.Constant.MinHeight} and {Constant.Constant.MaxHeight}!");
+            if (check < Constant.Constant.Min_Height || check > Constant.Constant.Max_Height)
+                return (false, $"Height must be between {Constant.Constant.Min_Height} and {Constant.Constant.Max_Height}!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidWeight(string weight)
         {
-            double convertWeight;
-            if (!double.TryParse(weight, out convertWeight))
+            if (!double.TryParse(weight, out var convertWeight))
                 return (false, "Incorrect input format!");
-            if (convertWeight < Constant.Constant.MinWeight || convertWeight > Constant.Constant.MaxWeight)
-                return (false, $"Weight must be between {Constant.Constant.MinWeight} and {Constant.Constant.MaxWeight}!");
+            if (convertWeight < Constant.Constant.Min_Weight || convertWeight > Constant.Constant.Max_Weight)
+                return (false, $"Weight must be between {Constant.Constant.Min_Weight} and {Constant.Constant.Max_Weight}!");
             return (true, string.Empty);
         }
 
@@ -61,8 +58,8 @@ namespace BTL0.Validation
                 return (false, "Student code is not null or empty!");
             if (studentCode.Contains(" "))
                 return (false, "Student code cannot contain spaces!");
-            if (studentCode.Length != Constant.Constant.MaxLengthStudentCode)
-                return (false, $"Student code must have {Constant.Constant.MaxLengthStudentCode} characters!");
+            if (studentCode.Length != Constant.Constant.Max_Length_Student_Code)
+                return (false, $"Student code must have {Constant.Constant.Max_Length_Student_Code} characters!");
             if (students.Any(student => student != null && student.StudentCode == studentCode))
                 return (false, "Student code already exists");
             return (true, string.Empty);
@@ -72,32 +69,30 @@ namespace BTL0.Validation
         {
             if (string.IsNullOrEmpty(school))
                 return (false, "School is not null or empty!");
-            if (school.Length > Constant.Constant.MaxLengthSchoolName)
-                return (false, $"School must be less than {Constant.Constant.MaxLengthSchoolName} characters!");
+            if (school.Length > Constant.Constant.Max_Length_School_Name)
+                return (false, $"School must be less than {Constant.Constant.Max_Length_School_Name} characters!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidStartYear(string year)
         {
-            int convertYear;
             if (string.IsNullOrEmpty(year))
                 return (false, "Year is not null or empty!");
-            if (!int.TryParse(year, out convertYear))
+            if (!int.TryParse(year, out var convertYear))
                 return (false, "Incorrect input format!");
-            if (convertYear < Constant.Constant.MinYearOfAdmission || year.Length != Constant.Constant.LengthYearOfAdmission)
-                return (false, $"Year must be a valid {Constant.Constant.LengthYearOfAdmission}-digit number from {Constant.Constant.MinYearOfAdmission} onwards!");
+            if (convertYear < Constant.Constant.Min_Year_Of_Admission || year.Length != Constant.Constant.Length_Year_Of_Admission)
+                return (false, $"Year must be a valid {Constant.Constant.Length_Year_Of_Admission}-digit number from {Constant.Constant.Min_Year_Of_Admission} onwards!");
             return (true, string.Empty);
         }
 
         public static (bool isSuccess, string Message) GetValidGPA(string gpa)
         {
-            double convertGPA;
             if (string.IsNullOrEmpty(gpa))
                 return (false, "GPA is not null or empty!");
-            if (!double.TryParse(gpa, out convertGPA))
+            if (!double.TryParse(gpa, out var convertGPA))
                 return (false, "Incorrect input format!");
-            if (convertGPA < Constant.Constant.MinGPA || convertGPA > Constant.Constant.MaxGPA)
-                return (false, $"GPA must be between {Constant.Constant.MinGPA} and {Constant.Constant.MaxGPA}!");
+            if (convertGPA < Constant.Constant.Min_GPA || convertGPA > Constant.Constant.Max_GPA)
+                return (false, $"GPA must be between {Constant.Constant.Min_GPA} and {Constant.Constant.Max_GPA}!");
             return (true, string.Empty);
         }
 

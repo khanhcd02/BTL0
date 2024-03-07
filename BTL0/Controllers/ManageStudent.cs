@@ -19,7 +19,7 @@ namespace BTL0.Controllers
             Console.WriteLine("--------------------------");
         }
 
-        public void ReadStudents()
+        public void ReadStudentsList()
         {
             Console.WriteLine("LIST:");
             foreach (Student student in Students)
@@ -28,23 +28,22 @@ namespace BTL0.Controllers
             }
         }
 
-        public Student FindByID()
+        public Student InputID()
         {
-            var ID = 0;
+            var id = 0;
             Console.Write("Enter student ID:");
             while (true)
             {
-                var inputID = Console.ReadLine();
-                var isInt = Int32.TryParse(inputID, out int result);
-                if (!isInt)
+                if (!Int32.TryParse(Console.ReadLine(), out var result))
                 {
                     Console.WriteLine("Input again!");
+                    Console.Write("Enter student ID:");
                     continue;
                 }
-                ID = result;
+                id = result;
                 break;
             }
-            var Student = Students.FirstOrDefault(x => x.ID == ID);
+            var Student = Students.FirstOrDefault(x => x.ID == id);
             if (Student == null)
             {
                 Console.WriteLine("Student does not exist!");
@@ -92,8 +91,7 @@ namespace BTL0.Controllers
             while (true)
             {
                 Console.Write("Enter your choice: ");
-                int Choice;
-                if (!int.TryParse(Console.ReadLine(), out Choice))
+                if (!int.TryParse(Console.ReadLine(), out var Choice))
                 {
                     Console.WriteLine("Invalid input. Please enter a number.");
                     continue;
@@ -141,7 +139,20 @@ namespace BTL0.Controllers
         {
             Students.Remove(student);
             Console.WriteLine("Student deleted successfully!");
-            ReadStudents();
+            ReadStudentsList();
+        }
+
+        public void CRUDByID(string key)
+        {
+            var student = InputID();
+            if (student == null)
+                return;
+            if (key == "read")
+                ReadStudentInfo(student);
+            if (key == "update")
+                UpdateStudent(student);
+            if (key == "delete")
+                DeleteStudent(student);
         }
 
         public void RankPercent()
@@ -191,8 +202,7 @@ namespace BTL0.Controllers
             Console.WriteLine("Enter the corresponding number for each rank:\n1 - Poor, 2 - Weak, 3 - Average, 4 - Good, 5 - VeryGood, 6 - Excellent");
             while (true)
             {
-                var userInput = Console.ReadLine();
-                if (int.TryParse(userInput, out inputKey))
+                if (int.TryParse(Console.ReadLine(), out inputKey))
                     if (rankMappings.ContainsKey(inputKey))
                         break;
                 Console.WriteLine("Enter a valid number from 1 to 6:");
@@ -268,7 +278,6 @@ namespace BTL0.Controllers
                     else if (line.StartsWith("AcademicPerformance="))
                     {
                         Enum.TryParse(line.Substring(20), true, out rank);
-
                         var student = new Student
                         {
                             ID = id,
@@ -292,6 +301,5 @@ namespace BTL0.Controllers
                 Console.WriteLine($"Error loading students from file: {ex.Message}");
             }
         }
-
     }
 }

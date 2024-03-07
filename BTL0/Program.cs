@@ -1,5 +1,4 @@
 ﻿using BTL0.Controllers;
-using BTL0.Models;
 using System;
 
 namespace BTL0
@@ -14,14 +13,14 @@ namespace BTL0
             while (true)
             {
                 MainMenu();
-                int key = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out var key);
                 switch (key)
                 {
                     case 1:
                         ManagerMenu();
                         break;
                     case 2:
-                        AppController.ReadStudents();
+                        AppController.ReadStudentsList();
                         break;
                     case 3:
                         AppController.SaveStudentsToFile();
@@ -48,24 +47,20 @@ namespace BTL0
                 Console.WriteLine("7. Show List Of Students By Input Ranking");
                 Console.WriteLine("8. Back");
                 Console.WriteLine("--------------------------------------");
-                int key = int.Parse(Console.ReadLine());
-                Student student;
+                int.TryParse(Console.ReadLine(), out var key);
                 switch (key)
                 {
                     case 1:
                         AppController.CreateStudent();
                         break;
                     case 2:
-                        student = AppController.FindByID();
-                        AppController.ReadStudentInfo(student);
+                        AppController.CRUDByID("read");
                         break;
                     case 3:
-                        student = AppController.FindByID();
-                        AppController.UpdateStudent(student);
+                        AppController.CRUDByID("update");
                         break;
                     case 4:
-                        student = AppController.FindByID();
-                        AppController.DeleteStudent(student);
+                        AppController.CRUDByID("delete");
                         break;
                     case 5:
                         AppController.RankPercent();
