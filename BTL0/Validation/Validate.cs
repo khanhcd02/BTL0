@@ -52,7 +52,7 @@ namespace BTL0.Validation
             return (true, string.Empty);
         }
 
-        public static (bool isSuccess, string Message) GetValidStudentCode(string studentCode, List<Student> students)
+        public static (bool isSuccess, string Message) GetValidStudentCode(string studentCode, List<Student> studentsList)
         {
             if (string.IsNullOrEmpty(studentCode))
                 return (false, "Student code is not null or empty!");
@@ -60,7 +60,7 @@ namespace BTL0.Validation
                 return (false, "Student code cannot contain spaces!");
             if (studentCode.Length != Constant.Constant.Max_Length_Student_Code)
                 return (false, $"Student code must have {Constant.Constant.Max_Length_Student_Code} characters!");
-            if (students.Any(student => student != null && student.StudentCode == studentCode))
+            if (studentsList.Any(student => student != null && student.StudentCode == studentCode))
                 return (false, "Student code already exists");
             return (true, string.Empty);
         }

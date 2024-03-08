@@ -8,8 +8,8 @@ namespace BTL0
         static void Main(string[] args)
         {
             Console.WriteLine("-------------------------------------------- ");
-            ManageStudent AppController = new ManageStudent();
-            AppController.LoadStudentsFromFile();
+            var appController = new ManageStudent();
+            appController.LoadStudentsFromFile();
             while (true)
             {
                 MainMenu();
@@ -20,10 +20,10 @@ namespace BTL0
                         ManagerMenu();
                         break;
                     case 2:
-                        AppController.ReadStudentsList();
+                        appController.ReadStudentsList();
                         break;
                     case 3:
-                        AppController.SaveStudentsToFile();
+                        appController.SaveStudentsToFile();
                         Environment.Exit(0);
                         break;
                     default:
@@ -35,7 +35,7 @@ namespace BTL0
 
         static void ManagerMenu()
         {
-            ManageStudent AppController = new ManageStudent();
+            var appController = new ManageStudent();
             while (true)
             {
                 Console.WriteLine("1. ADD STUDENT ");
@@ -51,25 +51,25 @@ namespace BTL0
                 switch (key)
                 {
                     case 1:
-                        AppController.CreateStudent();
+                        appController.CreateStudent();
                         break;
                     case 2:
-                        AppController.CRUDByID("read");
+                        appController.CRUDById("read");
                         break;
                     case 3:
-                        AppController.CRUDByID("update");
+                        appController.CRUDById("update");
                         break;
                     case 4:
-                        AppController.CRUDByID("delete");
+                        appController.CRUDById("delete");
                         break;
                     case 5:
-                        AppController.RankPercent();
+                        appController.RankPercent();
                         break;
                     case 6:
-                        AppController.GPAPercent();
+                        appController.GPAPercent();
                         break;
                     case 7:
-                        AppController.ListOfStudentsByRanking();
+                        appController.ListOfStudentsByRanking();
                         break;
                     case 8:
                         return;
