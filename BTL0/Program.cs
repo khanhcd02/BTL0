@@ -47,6 +47,7 @@ namespace BTL0
                 Console.WriteLine("7. Show List Of Students By Input Ranking");
                 Console.WriteLine("8. Back");
                 Console.WriteLine("--------------------------------------");
+                Console.Write("Input Key:");
                 int.TryParse(Console.ReadLine(), out var key);
                 switch (key)
                 {
@@ -86,6 +87,7 @@ namespace BTL0
             Console.WriteLine("2. List Student ");
             Console.WriteLine("3. Save & Exit");
             Console.WriteLine("--------------------------------------");
+            Console.Write("Input Key:");
         }
     }
 }
